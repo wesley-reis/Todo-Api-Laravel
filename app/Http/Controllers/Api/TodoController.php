@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TodoStoreRequest;
+use App\Http\Requests\TodoTaskStoreRequest;
 use App\Http\Requests\TodoUpdateRequest;
 use App\Http\Resources\TodoResource;
+use App\Http\Resources\TodoTaskResource;
 use App\Models\Todo;
 use Illuminate\Http\Request;
 
@@ -28,6 +30,13 @@ class TodoController extends Controller
     public function index()
     {
         return TodoResource::collection(auth()->user()->todos);
+    }
+
+
+    public function show(Todo $todo)
+    {
+        $todo->load('tasks');
+        return new TodoResource($todo);
     }
 
     /**
@@ -66,5 +75,13 @@ class TodoController extends Controller
     public function destroy(Todo $todo)
     {
         $todo->delete();
+    }
+
+    public function addTask(Todo $todo, TodoTaskStoreRequest $request)
+    {
+        $input = $request->validated();
+        $todoTask = $todo->tasks()->create($input);
+
+        return new TodoTaskResource($todoTask);
     }
 }
