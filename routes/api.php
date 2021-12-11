@@ -3,7 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\MeController;
 use App\Http\Controllers\Api\TodoController;
-use App\Http\Controllers\TodoTaskController;
+use App\Http\Controllers\Api\TodoTaskController;
 use Illuminate\Support\Facades\Route;
 
 
