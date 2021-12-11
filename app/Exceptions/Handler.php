@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -41,6 +42,13 @@ class Handler extends ExceptionHandler
             $message = 'Not found.';
 
             $exception = $e->getPrevious();
+
+            if ($exception instanceof AuthorizationException) {
+                return response()->json([
+                    'error' => class_basename(AuthorizationException::class),
+                    'message' => 'This action is unauthorized.'
+                ], 403);
+            }
             if ($exception instanceof ModelNotFoundException) {
                 $modelName = class_basename($exception->getModel());
                 $apiErrorCode = $modelName . $apiErrorCode;
@@ -48,10 +56,13 @@ class Handler extends ExceptionHandler
 
             }
 
+
             return response()->json([
                 'error'   => $apiErrorCode,
                 'message' => $message,
             ], 404);
         });
     }
+
+
 }
