@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\TodoTaskUpdateRequest;
 use App\Http\Resources\TodoTaskResource;
 use App\Models\TodoTask;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class TodoTaskController extends Controller
@@ -35,5 +34,4 @@ class TodoTaskController extends Controller
 
         $todoTask->delete();
     }
-
 }

@@ -10,8 +10,7 @@ class Todo extends Model
     use HasFactory;
 
     protected $fillable = [
-        'label',
-        'status'
+        'label'
     ];
 
     public function tasks(){

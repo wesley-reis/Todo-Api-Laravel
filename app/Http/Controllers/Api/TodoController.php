@@ -9,6 +9,7 @@ use App\Http\Requests\TodoUpdateRequest;
 use App\Http\Resources\TodoResource;
 use App\Http\Resources\TodoTaskResource;
 use App\Models\Todo;
+use Countable;
 use Illuminate\Http\Request;
 
 /**
@@ -50,11 +51,7 @@ class TodoController extends Controller
     {
         $input = $request->validated();
 
-        if (empty($input['status'])){
-            $status = $input['status'] = 'Pendente';
-        }
-
-        $todo = auth()->user()->todos()->create($input);
+            $todo = auth()->user()->todos()->create($input);
 
         return new TodoResource($todo);
 
@@ -67,10 +64,7 @@ class TodoController extends Controller
 
         $input = $request->validated();
 
-        if (!empty($input['status'])){
-            $status = $input['status'] = 'Pendente';
-        }
-
+    
         $todo->fill($input);
         $todo->save();
 

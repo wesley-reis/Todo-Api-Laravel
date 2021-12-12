@@ -17,7 +17,6 @@ class CreateTodosTable extends Migration
             $table->id();
             $table->string('label');
             $table->unsignedBigInteger('user_id');
-            $table->string('status')->default('Pendente');
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
