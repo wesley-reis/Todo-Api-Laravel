@@ -17,7 +17,7 @@ Route::prefix('v1')->group(function(){
 
     Route::prefix('me')->group(function (){
         Route::get('', [MeController::class, "index"]);
-        Route::put('', [MeController::class, "update"]);
+        Route::post('', [MeController::class, "update"]);
     });
 
     Route::prefix('todos')->group(function (){
