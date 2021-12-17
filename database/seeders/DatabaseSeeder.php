@@ -21,10 +21,10 @@ class DatabaseSeeder extends Seeder
 
         ]);
 
-        $this->call([
-            User::factory(9)->create(),
-            Todo::factory(100)->create(),
-            TodoTask::factory(1000)->create(),
-        ]);
+        // $this->call([
+        //     User::factory(9)->create(),
+        //     Todo::factory(100)->create(),
+        //     TodoTask::factory(1000)->create(),
+        // ]);
     }
 }

@@ -11,24 +11,26 @@ class UserService
 
     public function update(User $user, array $input)
     {
-        $avatar = $input['avatar'];
-
         $checkEmailUser = User::where('email', $input['email'])->where('email', '!=', $user->email)->exists();
 
-        if (!empty($input['email']) && $checkEmailUser){
+        if (!empty($input['email']) && $checkEmailUser) {
             throw new UserHasBeeTakenException();
         }
 
-        if (!empty($input['password'])){
-
+        if (!empty($input['password'])) {
             $input['password'] = bcrypt($input['password']);
         }
 
-        if($avatar->isValid()){
+        if (!empty($input['avatar'])) {
+            $avatar = $input['avatar'];
 
-            Storage::disk('public')->delete($user->avatar);
-            $path = $avatar->store('images', 'public');
-            $input['avatar'] = $path;
+            if ($avatar->isValid()) {
+                Storage::disk('public')->delete($user->avatar);
+
+                $path = $avatar->store('images', 'public');
+
+                $input['avatar'] = $path;
+            }
         }
 
         $user->fill($input);
@@ -36,5 +38,4 @@ class UserService
 
         return $user->fresh();
     }
-
 }

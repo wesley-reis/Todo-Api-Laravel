@@ -26,8 +26,8 @@ class MeUptadeRequest extends FormRequest
         return [
             'first_name' => 'required|string',
             'last_name' => 'string|nullable',
-            'avatar' => 'image|nullable',
             'email' => 'required|email',
+            'avatar' => 'image|nullable',
             'password' => 'sometimes|string|min:8|max:30|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+$/',
         ];
     }
